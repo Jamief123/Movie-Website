@@ -1,64 +1,47 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>JMDB</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="../public/stylesheets/app.css" type="text/css" />
-    </head>
-    <body>
-    <% include ./partials/navbar %>
+<% include ./partials/header %>
+<% include ./partials/navbar %>
     
-    <div class="container">
-        <div class="jumbotron">
-            <h3>JMDB - Jamie's Movie Database!</h3>
-        </div>
-            <div id="imgContainer">
-                    <h1 style="text-align: center;">Out Now</h1>
-                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-                            <div class="carousel-inner">
+<div class="container">
+    
+    <div class="filters">
+        <select id="year"></select>
+    </div>
+
+    <script>
+        var start = 1900;
+        var end = new Date().getFullYear();
+        var options = "";
+        for(var year = start ; year <=end; year++){
+        options += "<option>"+ year +"</option>";
+        }
+        document.getElementById("year").innerHTML = options;
+    </script>
+
+<div class="container">
+    <div class="row">
+        <% data.results.forEach((movie) => { %>
+            <div class="col-md-6">
+                <div class="imgContainer">
+                    <a href="https://www.themoviedb.org/movie/<%= movie.id %>"><img src="http://image.tmdb.org/t/p/w500<%= movie.poster_path %>" /></a>
+                        <div class="movieInfo">
+                            <div class="movieTitle">
+                             <%= movie.title %>
+                            </div>
+                            <div class="movieDescription">
+                                <p><%= movie.overview.substring(0,250) %>...</p>
+                            </div>
+                            <div class="movieRating">
+                                    <hr>
+                                <p>Rating: <%= movie.vote_average %></p>
+                                <a href="/movies/<%= movie.id %>">More Info</a>
                             </div>
                         </div>
-                        <div class="movieInfo">
-                            <span id="movieTitle">
-
-                            </span>
-                        </div>
                 </div>
-            <div class="row">
-
             </div>
-    </div>
-    
-
-    <div class="container">
-            <div class="row">
-                    <% data.results.forEach((movie) => { %>
-                <div class="col">
-                    <div class="img-thumbnail">
-                        <img src="http://image.tmdb.org/t/p/w500<%= movie.poster_path %>" />
-                        <div class="caption">
-                            <a href="">More Info</a>
-                        </div>
-                        
-                    </div>
-                </div>
         <% }) %>
     </div>
-        
-
-    <!-- <div id="inCinemas">
-        <a class="section2" href="#">Upcoming Movies</a>
-        <div class="row">
-            <div class="col-sm-4">
-                <h2>Upcoming Movies</h2>
-                <ul id="movieList"></ul>
-            </div>
-        </div>
-    </div> -->
-
-
-    
-
+</div>
+     
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

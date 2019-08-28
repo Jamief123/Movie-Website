@@ -1,0 +1,26 @@
+<% include ../partials/header %>
+<% include ../partials/navbar %>
+
+<div class="container">
+        <div class="row">
+            <% data.results.forEach((movie) => { %>
+                <div class="col-md-6">
+                    <div class="imgContainer">
+                        <a href="https://www.themoviedb.org/movie/<%= movie.id %>"><img src="http://image.tmdb.org/t/p/w500<%= movie.poster_path %>" /></a>
+                            <div class="movieInfo">
+                                <div class="movieTitle">
+                                 <%= movie.title %>
+                                </div>
+                                <div class="movieDescription">
+                                    <p><%= movie.overview %></p>
+                                    
+                                </div>
+                                <div class="movieRating">
+                                    rating: <%= movie.vote_average %>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+    </div>

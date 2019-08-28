@@ -1,3 +1,17 @@
-<h1>Results Page</h1>
+<% include ./partials/header %>
+<% include ./partials/navbar %>
 
-
+<div class="container">
+    <div class="row">
+            <% data.results.forEach((movie) => { %>
+        <div class="col">
+            <div class="img-thumbnail">
+                <a href="https://www.themoviedb.org/movie/<%= movie.id %>"><img src="http://image.tmdb.org/t/p/w500<%= movie.poster_path %>" /></a>
+                <div class="caption">
+                    <a href="">More Info</a>
+                </div>
+                
+            </div>
+        </div>
+<% }) %>
+</div>
