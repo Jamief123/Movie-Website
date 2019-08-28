@@ -1,8 +1,109 @@
+/* Stylesheets are currently universal for all pages. This will be changed later */
+
+/* STYLING FOR INDEX PAGE */
+
 #out{
   text-align: center;
   font-size: 50;
-}
+  }
 
-.img-thumbnail img{
-  width: 20px;
-}
+  .filters{
+      height: 200px;
+      margin-bottom: 10px;
+      padding: 120px 0 0 22px;
+  }
+
+  label{
+    display: inline;  
+  }
+
+  #labelSortBy{
+    float: right;
+  }
+
+  .filters select{
+    width: 100px;
+    border-radius: 5px;
+    display: inline;
+  }
+
+  #sortBy{
+    display: inline;
+    float: right;
+  }
+
+  #carousel{
+    z-index: 0;
+  }
+
+  .filters{
+    position: absolute;
+    margin: auto;
+    display: block;
+    left: 10%;
+    bottom: 0px;
+    width: 75%;
+    z-index: 0;
+  }
+
+  img {
+    z-index: -1;
+  }
+
+  /* .img-thumbnail{
+      height: 360px;
+      margin: 5px;
+      border-radius: 4px;
+  }
+
+  .img-thumbnail img{
+      width: 29%;
+      float: left;
+  } */
+
+  .imgContainer{
+      height: 300px;
+      border: 2px solid gray;
+      border-radius: 4px;
+      margin: 5px;
+      padding: 3px;
+      box-shadow: 5px 5px 2px gray;
+  }
+
+  .imgContainer img{
+      width: 180px;
+      float: left;
+      border: 2px solid gray;
+      border-radius: 3px;
+  }
+
+  .movieTitle{
+      font-weight: bold;
+  }
+
+  .movieDescription{
+      height: 150px;
+  }
+
+  .movieRating{
+      font-weight: bold;
+  }
+
+  .movieInfo{
+      width: 60%;
+      float: right;
+  }
+
+
+  /* STYLING FOR SHOW PAGE */
+
+  .genre{
+    border-left: 1px solid black;
+    padding: 0 3px 0 3px;
+    font-weight: bold;
+  }
+
+  .movieGenre{
+    padding-top: 3px;
+    font-style: italic;
+  }

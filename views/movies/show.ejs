@@ -3,24 +3,36 @@
 
 <div class="container">
         <div class="row">
-            <% data.results.forEach((movie) => { %>
                 <div class="col-md-6">
-                    <div class="imgContainer">
-                        <a href="https://www.themoviedb.org/movie/<%= movie.id %>"><img src="http://image.tmdb.org/t/p/w500<%= movie.poster_path %>" /></a>
-                            <div class="movieInfo">
+                    <div class="imgContainerShow">
+                        <img src="http://image.tmdb.org/t/p/w500<%= data.backdrop_path %>" />
+                            <div class="movieInfoShow">
+                                
                                 <div class="movieTitle">
-                                 <%= movie.title %>
+                                 <%= data.original_title %>
                                 </div>
-                                <div class="movieDescription">
-                                    <p><%= movie.overview %></p>
+                                <div class="movieGenre">
+                                    Genre:
+                                        <% data.genres.forEach((genre) => { %> 
+                                            <span class="genre"></span><%=genre.name%> </span>
+                                        <% }); %>
+                                        
+                                    </div>
+                                    <div class="extraInfo">
+                                        <p>Release Date: <%= data.release_date %></p>
+                                        <p>Runtime: <%= data.runtime %> minutes</p> 
+                                        <hr>
+                                    </div>
+
+                                <div class="movieDescriptionShow">
+                                    <p><%= data.overview %></p>
                                     
                                 </div>
                                 <div class="movieRating">
-                                    rating: <%= movie.vote_average %>
+                                    rating: <%= data.vote_average %>
                                 </div>
                             </div>
                     </div>
                 </div>
-            <% }) %>
         </div>
     </div>

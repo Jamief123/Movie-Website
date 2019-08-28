@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/Jamief123/Movie-Website#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "dotenv": "^8.1.0",
     "ejs": "^2.6.2",
+    "ejs-lint": "^0.3.0",
     "express": "^4.17.1",
     "request": "^2.88.0"
   }
