@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 const express = require("express");
 var User = require("./models/user");
+var Review = require("./models/reviews")
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const request = require('request');
@@ -10,6 +11,7 @@ var app = express();
 const PORT = 3000;
 dotenv.config();
 const APIKey = process.env.TMDB_API_KEY;
+var middleware = require("./middleware");
 
 mongoose.connect("mongodb://localhost/jmdb", {useNewUrlParser: true}); 
 app.set('view engine', 'ejs');
@@ -104,10 +106,14 @@ app.get("/movies/:id", (req, res) => {
     })
 });
 
-app.post("/reviews/new", (req, res) =>{
-    res.send("SHow rote");
-    console.log(req.body);
-})
+//handle logic for adding new review
+// app.post("/reviews/new", middleware.isLoggedIn, (req, res) =>{
+//     var movieID = req.body.id;
+//     var content = req.body.content;
+//     var user = res.locals.user;
+//     var r = Review.create(movieID, content, user);
+//     console.log(r);
+// });
 
 app.post("/search/", (req, res) => {
     var query = req.body.Search;

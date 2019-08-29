@@ -12,4 +12,4 @@ var reviewSchema = new mongoose.Schema({
 
 reviewSchema.plugin(passportLocalMongose);
 
-module.exports = mongoose.model("Review", userSchema);
+module.exports = mongoose.model("Review", reviewSchema);
