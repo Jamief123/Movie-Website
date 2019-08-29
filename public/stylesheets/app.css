@@ -94,6 +94,20 @@
       float: right;
   }
 
+  .pagination{
+    margin: 10px 0 10px 0;
+    width: 100%;
+    height: 40px;
+    border: 2px solid gray;
+    border-radius: 4px;
+  }
+
+  .pagination li{
+    list-style: none;
+    display: inline;
+    margin: auto;
+  }
+
 
   /* STYLING FOR SHOW PAGE */
 

@@ -6,12 +6,20 @@
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                <img class="d-block w-100" src="http://image.tmdb.org/t/p/w500<%= data.results[0].backdrop_path %>" alt="First slide">
+                    <%if(data.results[0].backdrop_path) {%>
+                        <img class="d-block w-100" src="http://image.tmdb.org/t/p/w1280<%= data.results[0].backdrop_path %>" alt="First slide">
+                    <% }else{ %>
+                        <img class="d-block w-100" src="/images/NoImageFound.png" alt="First slide">
+                        <% } %>
                 </div>
                 <% for(var i = 1; i < data.results.length; i++) { %>
                     <div class="carousel-item">
-                    <img class="d-block w-100" src="http://image.tmdb.org/t/p/w300<%= data.results[i].backdrop_path %>" alt="Second slide">
-                    </div>
+                        <%if(data.results[i].backdrop_path) {%>
+                            <img class="d-block w-100" src="http://image.tmdb.org/t/p/w1280<%= data.results[i].backdrop_path %>" alt="Second slide">
+                        <% }else{ %>
+                            <img class="d-block w-100" src="/images/NoImageFound.png" alt="First slide">
+                            <% } %>
+                        </div>
                 <% };%>
                 <!-- <div class="filters">
                         <label for="year">Year</label>
@@ -39,36 +47,52 @@
             </a>
         </div>
         
-    </div> 
-
-        
-    </div>
+    </div>  
 
     <script src="/scripts/yearDropdown.js"></script>
 
-<div class="container">
+
     <div class="row">
         <% data.results.forEach((movie) => { %>
             <div class="col-md-6">
                 <div class="imgContainer">
-                    <a href="https://www.themoviedb.org/movie/<%= movie.id %>"><img src="http://image.tmdb.org/t/p/w500<%= movie.poster_path %>" /></a>
-                        <div class="movieInfo">
-                            <div class="movieTitle">
-                             <%= movie.title %>
+                    <%if(movie.poster_path) {%>
+                        <a href="https://www.themoviedb.org/movie/<%= movie.id %>"><img src="http://image.tmdb.org/t/p/w500<%= movie.poster_path %>" /></a>
+                        <% }else{ %>
+                            <a href="https://www.themoviedb.org/movie/<%= movie.id %>"><img src="/images/NoImageFoundSmall" /></a>
+                            <%}%>
+                            <div class="movieInfo">
+                                <div class="movieTitle">
+                                <%= movie.title %>
+                                </div>
+                                <div class="movieDescription">
+                                    <p><%= movie.overview.substring(0,250) %>...</p>
+                                </div>
+                                <div class="movieRating">
+                                        <hr>
+                                    <p>Rating: <%= movie.vote_average %></p>
+                                    <a href="/movies/<%= movie.id %>">More Info</a>
+                                </div>
                             </div>
-                            <div class="movieDescription">
-                                <p><%= movie.overview.substring(0,250) %>...</p>
-                            </div>
-                            <div class="movieRating">
-                                    <hr>
-                                <p>Rating: <%= movie.vote_average %></p>
-                                <a href="/movies/<%= movie.id %>">More Info</a>
-                            </div>
-                        </div>
-                </div>
+                    </div>
             </div>
         <% }) %>
     </div>
+
+    <div class="pagination">
+        <ul>
+            <li><a href="/1">1</a></li>
+            <li><a href="/2">2</a></li>
+            <li><a href="/3">3</a></li>
+            <li><a href="/4">4</a></li>
+            <li><a href="/5">5</a></li>
+            <li><a href="/6">6</a></li>
+            <li><a href="/7">7</a></li>
+            <li><a href="/8">8</a></li>
+            <li><a href="/9">9</a></li>
+            <li><a href="/10">10</a></li>
+        </ul>
+        </div>
 </div>
      
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
