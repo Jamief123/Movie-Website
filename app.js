@@ -29,14 +29,38 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/register", (req, res) => { 
-    res.render("register");
-});
-
 app.use((req, res, next) => {
     res.locals.currentUser = req.user;
     next();
 });
+
+
+//---------ROUTES----------//
+
+app.get("/register", (req, res) => { 
+    res.render("register");
+});
+
+//show login form
+app.get("/login", (req, res) => {
+    res.render("login");
+});
+
+
+//Handle login logic
+app.post("/login", passport.authenticate("local", 
+    {
+        successRedirect: "/",
+        failureRedirect: "/login"
+    }), (req, res) => {
+    
+});
+
+app.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+});
+
 
 app.post("/register", (req, res) => {
     var newUser = new User({username: req.body.username, email: req.body.email})
@@ -79,6 +103,11 @@ app.get("/movies/:id", (req, res) => {
         }
     })
 });
+
+app.post("/reviews/new", (req, res) =>{
+    res.send("SHow rote");
+    console.log(req.body);
+})
 
 app.post("/search/", (req, res) => {
     var query = req.body.Search;
