@@ -3,9 +3,9 @@
 
 <div class="container">
         <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="imgContainerShow">
-                        <img src="http://image.tmdb.org/t/p/w500<%= data.backdrop_path %>" />
+                        <img src="http://image.tmdb.org/t/p/w1280<%= data.backdrop_path %>" />
                             <div class="movieInfoShow">
                                 
                                 <div class="movieTitle">
@@ -34,5 +34,40 @@
                             </div>
                     </div>
                 </div>
-        </div>
-    </div>
+            </div>
+
+            <br>
+            <h3>Cast</h3>
+            <hr>
+            <br>
+                <div class="row">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6">
+                    </div>
+                    <% for(var i = 0; i < 6; i++) {%>
+                    <div class="col-sm-6 col-md-2 "></div>
+                        <div class="crewMember">
+                            <div class="crewMemberPicture">
+                                <img src="https://image.tmdb.org/t/p/w138_and_h175_face<%= data.credits.cast[i].profile_path %>"/>
+                                </div>
+                                <div class="crewMemberName">
+                                    <%= data.credits.cast[i].name %>
+                                </div>
+                            </div>
+                            
+                        
+                    <% } %>
+                </div>
+
+                <br>
+                <h3>User Reviews</h3>
+                <hr>
+                <div class="row">
+                        <h4>No reviews found. Leave a review</h4>
+                    <div>
+                        <textarea></textarea>
+                    </div>
+                        
+                    </div>
+</div>

@@ -36,6 +36,12 @@
     z-index: 0;
   }
 
+  #carousel img{
+    border: 2px solid gray;
+    border-radius: 4px;
+    box-shadow: 5px 5px 2px gray;
+  }
+
   .filters{
     position: absolute;
     margin: auto;
@@ -100,11 +106,18 @@
     height: 40px;
     border: 2px solid gray;
     border-radius: 4px;
+    box-shadow: 5px 5px 2px gray;
+    text-align: center;
   }
 
   .pagination li{
     list-style: none;
     display: inline;
+    margin: auto;
+    margin-right: 20px;
+  }
+
+  .pagination ul{
     margin: auto;
   }
 

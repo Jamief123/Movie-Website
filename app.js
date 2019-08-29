@@ -1,19 +1,57 @@
 const dotenv = require("dotenv");
 const express = require("express");
+var User = require("./models/user");
 const bodyParser = require("body-parser");
+const mongoose = require('mongoose');
 const request = require('request');
-
+var passport = require("passport");
+var LocalStrategy = require("passport-local");
 var app = express();
 const PORT = 3000;
-
 dotenv.config();
 const APIKey = process.env.TMDB_API_KEY;
 
+mongoose.connect("mongodb://localhost/jmdb", {useNewUrlParser: true}); 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(express.static(__dirname + "/public"));
 
+app.use(require("express-session")({
+    secret: "Secret",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.get("/register", (req, res) => { 
+    res.render("register");
+});
+
+app.use((req, res, next) => {
+    res.locals.currentUser = req.user;
+    next();
+});
+
+app.post("/register", (req, res) => {
+    var newUser = new User({username: req.body.username, email: req.body.email})
+    User.register(newUser, req.body.password, (err, user) => {
+        if(err){
+            console.log(err);
+            console.log(newUser);
+            console.log(req.body);
+            return res.redirect("register");
+        }
+        passport.authenticate("local")(req, res, () => {
+        res.redirect("/register");
+        });
+    });
+});
 
 app.get("/:page", (req, res) => {
     var pageNum = req.params.page;
@@ -29,7 +67,7 @@ app.get("/:page", (req, res) => {
 
 app.get("/movies/:id", (req, res) => {
     var id = req.params.id;
-    var url = `https://api.themoviedb.org/3/movie/${id}?api_key=${APIKey}&language=en-US`;
+    var url = `https://api.themoviedb.org/3/movie/${id}?api_key=${APIKey}&append_to_response=credits`;
     request(url, (err, response, body) => {
         if(!err && response.statusCode ==200){
             var data = JSON.parse(body);
