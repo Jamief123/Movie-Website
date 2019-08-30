@@ -94,26 +94,46 @@ app.get("/:page", (req, res) => {
 app.get("/movies/:id", (req, res) => {
     var id = req.params.id;
     var url = `https://api.themoviedb.org/3/movie/${id}?api_key=${APIKey}&append_to_response=credits`;
-    request(url, (err, response, body) => {
-        if(!err && response.statusCode ==200){
-            var data = JSON.parse(body);
-            res.render('movies/show', {data: data});
-        }
-        else{
+    var data = [];
+    var reviews = Review.find({movieID: id}, (err, foundReview) => {
+        if(err){
             console.log(err);
+        }else{
+            request(url, (err, response, body) => {
+                if(!err && response.statusCode ==200){
+                    var movie = JSON.parse(body);
+                    data.push(movie);
+                    data.push(foundReview);
+                    //push both objects into array so they can be passed into ejs template
+                    console.log(data[1].length);
+                    res.render('movies/show', {data: data});
+                    //res.send(data);
+                }
+                else{
+                    res.redirect("/");
+                }
+            })
+            
+        }
+    });
+    
+});
+
+//handle logic for adding new review
+app.post("/reviews/new", middleware.isLoggedIn, (req, res) =>{
+
+    var movieID = req.body.movieId;
+    var content = req.body.content;
+    var user = res.locals.currentUser;
+    var review = new Review({movieID: movieID, content: content, user: user}); //create mongoose object
+    review.save((err, review) => {
+        if(err){
+            console.log(err);
+        }else{
             res.redirect("/");
         }
     })
 });
-
-//handle logic for adding new review
-// app.post("/reviews/new", middleware.isLoggedIn, (req, res) =>{
-//     var movieID = req.body.id;
-//     var content = req.body.content;
-//     var user = res.locals.user;
-//     var r = Review.create(movieID, content, user);
-//     console.log(r);
-// });
 
 app.post("/search/", (req, res) => {
     var query = req.body.Search;

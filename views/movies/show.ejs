@@ -5,31 +5,31 @@
         <div class="row">
                 <div class="col-md-12">
                     <div class="imgContainerShow">
-                        <img src="http://image.tmdb.org/t/p/w1280<%= data.backdrop_path %>" />
+                        <img src="http://image.tmdb.org/t/p/w1280<%= data[0].backdrop_path %>" />
                             <div class="movieInfoShow">
                                 
                                 <div class="movieTitle">
-                                 <%= data.original_title %>
+                                 <%= data[0].original_title %>
                                 </div>
                                 <div class="movieGenre">
                                     Genre:
-                                        <% data.genres.forEach((genre) => { %> 
+                                        <% data[0].genres.forEach((genre) => { %> 
                                             <span class="genre"></span><%=genre.name%> </span>
                                         <% }); %>
                                         
                                     </div>
                                     <div class="extraInfo">
-                                        <p>Release Date: <%= data.release_date %></p>
-                                        <p>Runtime: <%= data.runtime %> minutes</p> 
+                                        <p>Release Date: <%= data[0].release_date %></p>
+                                        <p>Runtime: <%= data[0].runtime %> minutes</p> 
                                         <hr>
                                     </div>
 
                                 <div class="movieDescriptionShow">
-                                    <p><%= data.overview %></p>
+                                    <p><%= data[0].overview %></p>
                                     
                                 </div>
                                 <div class="movieRating">
-                                    rating: <%= data.vote_average %>
+                                    rating: <%= data[0].vote_average %>
                                 </div>
                             </div>
                     </div>
@@ -49,10 +49,10 @@
                     <div class="col-sm-6 col-md-2 "></div>
                         <div class="crewMember">
                             <div class="crewMemberPicture">
-                                <img src="https://image.tmdb.org/t/p/w138_and_h175_face<%= data.credits.cast[i].profile_path %>"/>
+                                <img src="https://image.tmdb.org/t/p/w138_and_h175_face<%= data[0].credits.cast[i].profile_path %>"/>
                                 </div>
                                 <div class="crewMemberName">
-                                    <%= data.credits.cast[i].name %>
+                                    <%= data[0].credits.cast[i].name %>
                                 </div>
                             </div>
                             
@@ -64,11 +64,18 @@
                 <h3>User Reviews</h3>
                 <hr>
                 <div class="row">
+                    <%if(data[1].length<1){ %>
                         <h4>No reviews found. Leave a review</h4>
+                    <% }else{ %>
+                        <div class="review">
+                            <p><%= data[1][0].content %></p><br><%= data[1][0].user.username %><br>    
+                        </div>
+                    <% } %>
+                        
                     <div>
                         <form action="/reviews/new" method="POST">
                         <input type="text" name ="content" value="content">
-                        <input type="hidden" name ="movieId" value="<%= data.id %>"/>
+                        <input type="hidden" name ="movieId" value="<%= data[0].id %>"/>
                         <input type="submit" value="submit">    
                         </form>
                     </div>
