@@ -137,7 +137,7 @@ app.post("/reviews/new", middleware.isLoggedIn, (req, res) =>{
 
 app.post("/search/", (req, res) => {
     var query = req.body.Search;
-    var url = `https://api.themoviedb.org/3/search/movie?api_key=${APIKey}4&language=en-US&query=${query}&page=1&include_adult=false`;
+    var url = `https://api.themoviedb.org/3/search/movie?api_key=${APIKey}&language=en-US&query=${query}&page=1&include_adult=false`;
     request(url, (err, response, body) => {
         if(!err && response.statusCode ==200){
             var data = JSON.parse(body);
